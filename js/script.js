@@ -30,6 +30,7 @@ function getConsoles() {
     //printing it out for my sake
     console.log(data)
 
+    //adds the elemts for each game and appends each one as a new div
     data.consoles.forEach((game) => {
         newh2 = document.createElement("h2")
         newh2.textContent = game.name
@@ -49,6 +50,24 @@ function getConsoles() {
 
         cardDivObj.appendChild(newdiv)
     })
+
+    //adding the tracking of the oldest, newest, and total games
+    oldestGame = data.consoles[0]
+    newestGame = data.consoles[0]
+    totalGames = 0
+
+    //goes through each game, checks if its older or newer than the current oldest/newest and changes it if so
+    data.consoles.forEach((game) => {
+        if (game.year < oldestGame.year) {
+            oldestGame = game
+        }
+        else if (game.year > newestGame.year) {
+            newestGame = game
+        }
+        totalGames += 1
+    })
+    //chaning the summary text
+    summaryLineBoxObj.innerText = `${totalGames} Consoles | Oldest ${oldestGame.name} ${oldestGame.year} | Newest ${newestGame.name} ${newestGame.year}`
 }
 
 
