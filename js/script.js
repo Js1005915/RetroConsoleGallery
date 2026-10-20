@@ -2,7 +2,7 @@ const loadConsolesButtonObj = document.getElementById("loadConsolesButton")
 
 var httpRequest = new XMLHttpRequest()
 
-var data = null
+
 
 const cardDivObj = document.getElementById("cardDiv")
 
@@ -14,22 +14,37 @@ const errorParagraphObj = document.getElementById("errorParagraph")
 
 function getConsoles() {
     cardDivObj.innerHTML = ""
+    errorParagraphObj.innerText = "Loading...."
     //sets the httprequest to open the API
-    httpRequest.open("get", "https://ozarktechwebdev.com/api/consoles.json")
+    httpRequest.open("GET", "https://ozarktechwebdev.com/api/consoles.json", true)
 
     //ONCE this has changed and is ready, it gives us the data from the API
     httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-            data = JSON.parse(httpRequest.responseText)
+        if (httpRequest.readyState == 4) {
+            if (httpRequest.status === 200) {
+                const data = JSON.parse(httpRequest.responseText)
+
+                errorParagraphObj.innerText = ""
+                //printing it out for my sake
+                console.log(data)
+
+                //calling the display function once it has completed here, because its async
+                displayConsoles(data)
+            }
+            else {
+                errorParagraphObj.innerText = `Could not load consoles ERRORCODE: ${httpRequest.status}`
+            }
         }
     }
     //sends the request to the server
     httpRequest.send()
 
 
-    //printing it out for my sake
-    console.log(data)
 
+}
+
+
+function displayConsoles(data) {
     //adds the elemts for each game and appends each one as a new div
     data.consoles.forEach((game) => {
         newh2 = document.createElement("h2")
