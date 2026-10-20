@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Barlow:wght@400;500&display=swap");
+
+:root {
+    --plastic: #dcdee3;
+    --panel: #f6f7f9;
+    --ink: #20203a;
+    --button-red: #d7263d;
+    --lcd-light: #9bbc0f;
+    --lcd-dark: #0f380f;
+    --error: #a3122a;
+
+    --font-display: "Chakra Petch", "Trebuchet MS", sans-serif;
+    --font-body: "Barlow", "Segoe UI", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+    background: var(--plastic);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+}
+
+h1 {
+    margin: 0 0 1.25rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+}
+
+/* The one memorable element: a chunky console button that presses down */
+#loadConsolesButton {
+    padding: 0.75rem 1.5rem;
+    background: var(--button-red);
+    color: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    box-shadow: 0 5px 0 var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#loadConsolesButton:active {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 var(--ink);
+}
+
+#loadConsolesButton:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 4px;
+}
+
+/* Loading and error messages */
+#errorParagraph {
+    margin: 1.5rem 0 0;
+    font-weight: 500;
+}
+
+#errorParagraph:empty {
+    display: none;
+}
+
+/* Summary line styled like a handheld LCD screen */
+#summaryLineBox {
+    margin: 1.5rem 0 2rem;
+    padding: 0.875rem 1.125rem;
+    background: var(--lcd-light);
+    color: var(--lcd-dark);
+    border: 3px solid var(--ink);
+    border-radius: 8px 8px 24px 8px;
+    box-shadow: inset 0 0 0 4px rgba(15, 56, 15, 0.15);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+#summaryLineBox:empty {
+    display: none;
+}
+
+/* Console cards */
+#cardDiv {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1.5rem;
+}
+
+#cardDiv > div {
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0 var(--ink);
+    overflow: hidden;
+}
+
+#cardDiv h2 {
+    margin: 0;
+    padding: 1rem 1rem 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+#cardDiv img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    padding: 1rem;
+    background: var(--plastic);
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+}
+
+#cardDiv p {
+    margin: 0;
+    padding: 0.75rem 1rem 1rem;
+    font-size: 0.9375rem;
+}
+
+@media (max-width: 30rem) {
+    body {
+        padding: 1.25rem 1rem 3rem;
+    }
+
+    #cardDiv {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #loadConsolesButton:active {
+        transform: none;
+    }
+}
